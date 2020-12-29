@@ -1,4 +1,4 @@
-import messaging from '@react-native-firebase/messaging';
+// import messaging from '@react-native-firebase/messaging';
 import { Platform } from 'react-native';
 import RNCallKeep, { IOptions } from 'react-native-callkeep';
 import {
@@ -7,7 +7,7 @@ import {
   TwilioPhone,
   twilioPhoneEmitter,
 } from 'react-native-twilio-phone';
-import VoipPushNotification from 'react-native-voip-push-notification';
+// import VoipPushNotification from 'react-native-voip-push-notification';
 import ramdomUuid from 'uuid-random';
 
 export type RNTwilioPhoneOptions = {
@@ -18,6 +18,15 @@ type Call = {
   uuid: string | null;
   sid: string | null;
 };
+
+type TwilioOptions = {
+  to: string,
+  from: string,
+  calleeName: string,
+  record: string,
+  callLogId: string,
+  api_token: string
+}
 
 const defaultOptions: RNTwilioPhoneOptions = {
   requestPermissionsOnInit: true,
@@ -52,13 +61,13 @@ class RNTwilioPhone {
       options
     );
 
-    const unsubscribeRegisterAndroid = RNTwilioPhone.registerAndroid();
-    const unsubscribeRegisterIOS = RNTwilioPhone.registerIOS();
+    // const unsubscribeRegisterAndroid = RNTwilioPhone.registerAndroid();
+    // const unsubscribeRegisterIOS = RNTwilioPhone.registerIOS();
 
     return () => {
       unsubscribeCallKeep();
-      unsubscribeRegisterAndroid();
-      unsubscribeRegisterIOS();
+      // unsubscribeRegisterAndroid();
+      // unsubscribeRegisterIOS();
     };
   }
 
@@ -93,40 +102,41 @@ class RNTwilioPhone {
   }
 
   static handleBackgroundState() {
-    if (Platform.OS !== 'android') {
-      return;
-    }
+  //   if (Platform.OS !== 'android') {
+  //     return;
+  //   }
 
-    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-      if (!remoteMessage.data) {
-        return;
-      }
+  //   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  //     if (!remoteMessage.data) {
+  //       return;
+  //     }
 
-      RNCallKeep.registerPhoneAccount();
-      RNCallKeep.registerAndroidEvents();
-      RNCallKeep.setAvailable(true);
+  //     RNCallKeep.registerPhoneAccount();
+  //     RNCallKeep.registerAndroidEvents();
+  //     RNCallKeep.setAvailable(true);
 
-      RNTwilioPhone.listenTwilioPhone();
-      RNTwilioPhone.listenCallKeep();
+  //     RNTwilioPhone.listenTwilioPhone();
+  //     RNTwilioPhone.listenCallKeep();
 
-      TwilioPhone.handleMessage(remoteMessage.data);
-    });
+  //     TwilioPhone.handleMessage(remoteMessage.data);
+  //   });
   }
 
-  static async startCall(to: string, calleeName?: string, from?: string) {
+  static async startCall(options: TwilioOptions) {
     const accessToken = await RNTwilioPhone.fetchAccessToken();
-    const params: ConnectParams = { to };
+    // const params: ConnectParams = { ...options };
 
-    if (from) {
-      params.from = from;
-    }
+    // if (from) {
+    //   params.from = from;
+    // }
 
-    TwilioPhone.startCall(accessToken, params);
+    TwilioPhone.startCall(accessToken, options);
 
     const uuid = ramdomUuid().toLowerCase();
-    RNTwilioPhone.activeCall = { uuid: null, sid: null };
+    RNTwilioPhone.activeCall = { uuid: uuid, sid: null };
+    RNTwilioPhone.calls = [{ uuid, sid: '' }]
 
-    RNCallKeep.startCall(uuid, to, calleeName, 'generic');
+    RNCallKeep.startCall(uuid, options.to, options.calleeName, 'generic', false);
   }
 
   static async unregister() {
@@ -143,26 +153,26 @@ class RNTwilioPhone {
       return () => {};
     }
 
-    messaging()
-      .getToken()
-      .then(RNTwilioPhone.registerTwilioPhone)
-      .catch((e) => console.log(e));
+    // messaging()
+    //   .getToken()
+    //   .then(RNTwilioPhone.registerTwilioPhone)
+    //   .catch((e) => console.log(e));
 
     // Listen to whether the token changes
-    const unsubscribeTokenRefresh = messaging().onTokenRefresh(
-      RNTwilioPhone.registerTwilioPhone
-    );
+    // const unsubscribeTokenRefresh = messaging().onTokenRefresh(
+    //   RNTwilioPhone.registerTwilioPhone
+    // );
 
-    const unsubscribeMessage = messaging().onMessage((remoteMessage) => {
-      if (remoteMessage.data) {
-        TwilioPhone.handleMessage(remoteMessage.data);
-      }
-    });
+    // const unsubscribeMessage = messaging().onMessage((remoteMessage) => {
+    //   if (remoteMessage.data) {
+    //     TwilioPhone.handleMessage(remoteMessage.data);
+    //   }
+    // });
 
-    return () => {
-      unsubscribeTokenRefresh();
-      unsubscribeMessage();
-    };
+    // return () => {
+    //   unsubscribeTokenRefresh();
+    //   unsubscribeMessage();
+    // };
   }
 
   private static registerIOS() {
@@ -170,25 +180,25 @@ class RNTwilioPhone {
       return () => {};
     }
 
-    VoipPushNotification.registerVoipToken();
+    // VoipPushNotification.registerVoipToken();
 
-    VoipPushNotification.addEventListener(
-      'register',
-      RNTwilioPhone.registerTwilioPhone
-    );
+    // VoipPushNotification.addEventListener(
+    //   'register',
+    //   RNTwilioPhone.registerTwilioPhone
+    // );
 
-    VoipPushNotification.addEventListener(
-      'notification',
-      (notification: any) => {
-        delete notification.aps;
-        TwilioPhone.handleMessage(notification);
-      }
-    );
+    // VoipPushNotification.addEventListener(
+    //   'notification',
+    //   (notification: any) => {
+    //     delete notification.aps;
+    //     TwilioPhone.handleMessage(notification);
+    //   }
+    // );
 
-    return () => {
-      VoipPushNotification.removeEventListener('register');
-      VoipPushNotification.removeEventListener('notification');
-    };
+    // return () => {
+    //   VoipPushNotification.removeEventListener('register');
+    //   VoipPushNotification.removeEventListener('notification');
+    // };
   }
 
   private static listenTwilioPhone() {
