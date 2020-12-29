@@ -148,10 +148,10 @@ class RNTwilioPhone {
     TwilioPhone.unregister(accessToken, RNTwilioPhone.deviceToken);
   }
 
-  private static registerAndroid() {
-    if (Platform.OS !== 'android') {
-      return () => {};
-    }
+  // private static registerAndroid() {
+  //   if (Platform.OS !== 'android') {
+  //     return () => {};
+  //   }
 
     // messaging()
     //   .getToken()
@@ -173,12 +173,12 @@ class RNTwilioPhone {
     //   unsubscribeTokenRefresh();
     //   unsubscribeMessage();
     // };
-  }
+  // }
 
-  private static registerIOS() {
-    if (Platform.OS !== 'ios') {
-      return () => {};
-    }
+  // private static registerIOS() {
+  //   if (Platform.OS !== 'ios') {
+  //     return () => {};
+  //   }
 
     // VoipPushNotification.registerVoipToken();
 
@@ -199,7 +199,7 @@ class RNTwilioPhone {
     //   VoipPushNotification.removeEventListener('register');
     //   VoipPushNotification.removeEventListener('notification');
     // };
-  }
+  // }
 
   private static listenTwilioPhone() {
     RNTwilioPhone.removeTwilioPhoneListeners();
@@ -392,16 +392,16 @@ class RNTwilioPhone {
     RNCallKeep.removeEventListener('didPerformDTMFAction');
   }
 
-  private static async registerTwilioPhone(deviceToken: string) {
-    try {
-      const accessToken = await RNTwilioPhone.fetchAccessToken();
+  // private static async registerTwilioPhone(deviceToken: string) {
+  //   try {
+  //     const accessToken = await RNTwilioPhone.fetchAccessToken();
 
-      TwilioPhone.register(accessToken, deviceToken);
-      RNTwilioPhone.deviceToken = deviceToken;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  //     TwilioPhone.register(accessToken, deviceToken);
+  //     RNTwilioPhone.deviceToken = deviceToken;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
 
   private static addCall(call: Call) {
     RNTwilioPhone.calls.push(call);
