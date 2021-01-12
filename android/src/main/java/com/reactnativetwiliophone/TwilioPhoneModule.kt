@@ -120,7 +120,7 @@ class TwilioPhoneModule(reactContext: ReactApplicationContext) : ReactContextBas
   @ReactMethod
   fun disconnectCall(callSid: String) {
     Log.i(tag, "Disconnecting call")
-
+    Log.i(tag, callSid)
     if (activeCalls[callSid] == null) {
       Log.e(tag, "No call to be disconnected")
       return
@@ -298,6 +298,8 @@ class TwilioPhoneModule(reactContext: ReactApplicationContext) : ReactContextBas
 
         val params = Arguments.createMap()
         params.putString("callSid", call.sid)
+
+        activeCalls.put(call.sid!!, call)
 
         sendEvent(reactApplicationContext, "CallConnected", params)
       }

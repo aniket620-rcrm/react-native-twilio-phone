@@ -297,6 +297,8 @@ extension TwilioPhone: CallDelegate {
     func callDidConnect(call: Call) {
         NSLog("[TwilioPhone] Call did connect")
         
+        activeCalls[call.sid] = call
+        
         if hasListeners {
             sendEvent(withName: "CallConnected", body: ["callSid": call.sid])
         }
@@ -341,6 +343,7 @@ extension TwilioPhone: CallDelegate {
         
         activeCalls.removeValue(forKey: call.sid)
     }
+    
 }
 
 // MARK: - TVONotificationDelegate
@@ -375,4 +378,5 @@ extension TwilioPhone: NotificationDelegate {
             sendEvent(withName: "CancelledCallInvite", body: ["callSid": cancelledCallInvite.callSid])
         }
     }
+    
 }
