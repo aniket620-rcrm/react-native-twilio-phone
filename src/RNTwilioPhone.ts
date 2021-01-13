@@ -79,6 +79,10 @@ class RNTwilioPhone {
 
     RNTwilioPhone.fetchAccessToken = fetchAccessToken;
 
+    if (Platform.OS === 'unknown' && requestPermissionsOnInit && callKeepOptions.supportsVideo) {
+      console.log('yes!')
+    }
+
     // if (Platform.OS === 'ios' || requestPermissionsOnInit) {
     //   RNCallKeep.setup(callKeepOptions)
     //     .then(() => {
