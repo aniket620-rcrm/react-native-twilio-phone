@@ -75,13 +75,10 @@ class RNTwilioPhone {
     fetchAccessToken: () => Promise<string>,
     options = defaultOptions
   ) {
-    const { requestPermissionsOnInit } = options;
+    // const { requestPermissionsOnInit } = options;
+    console.log(callKeepOptions, options)
 
     RNTwilioPhone.fetchAccessToken = fetchAccessToken;
-
-    if (Platform.OS === 'unknown' && requestPermissionsOnInit && callKeepOptions.supportsVideo) {
-      // console.log('yes!')
-    }
 
     // if (Platform.OS === 'ios' || requestPermissionsOnInit) {
     //   RNCallKeep.setup(callKeepOptions)
