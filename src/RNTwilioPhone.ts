@@ -1,5 +1,5 @@
 // import messaging from '@react-native-firebase/messaging';
-import RNCallKeep, { IOptions } from 'react-native-callkeep';
+// import RNCallKeep, { IOptions } from 'react-native-callkeep';
 import {
   EventType,
   TwilioPhone,
@@ -49,7 +49,7 @@ class RNTwilioPhone {
   // private static activeCall: Call | null = null;
 
   static initialize(
-    callKeepOptions: IOptions,
+    callKeepOptions: {},
     fetchAccessToken: () => Promise<string>,
     options = defaultOptions
   ) {
@@ -70,7 +70,7 @@ class RNTwilioPhone {
   }
 
   static initializeCallKeep(
-    callKeepOptions: IOptions,
+    callKeepOptions: {},
     fetchAccessToken: () => Promise<string>,
     options = defaultOptions
   ) {
@@ -246,7 +246,7 @@ class RNTwilioPhone {
         ({ callSid }) => {
         const uuid = RNTwilioPhone.getCallUUID(callSid);
 
-        uuid && RNCallKeep.setCurrentCallActive(uuid);
+        // uuid && RNCallKeep.setCurrentCallActive(uuid);
       }),
       twilioPhoneEmitter.addListener(
         EventType.CallDisconnected,
@@ -254,10 +254,10 @@ class RNTwilioPhone {
           const uuid = RNTwilioPhone.getCallUUID(callSid);
 
           if (uuid) {
-            RNCallKeep.reportEndCallWithUUID(
-              uuid,
-              CK_CONSTANTS.END_CALL_REASONS.REMOTE_ENDED
-            );
+            // RNCallKeep.reportEndCallWithUUID(
+            //   uuid,
+            //   CK_CONSTANTS.END_CALL_REASONS.REMOTE_ENDED
+            // );
 
             RNTwilioPhone.removeCall(uuid);
           }
@@ -269,10 +269,10 @@ class RNTwilioPhone {
           const uuid = RNTwilioPhone.getCallUUID(callSid);
 
           if (uuid) {
-            RNCallKeep.reportEndCallWithUUID(
-              uuid,
-              CK_CONSTANTS.END_CALL_REASONS.FAILED
-            );
+            // RNCallKeep.reportEndCallWithUUID(
+            //   uuid,
+            //   CK_CONSTANTS.END_CALL_REASONS.FAILED
+            // );
 
             RNTwilioPhone.removeCall(uuid);
           }
