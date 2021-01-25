@@ -244,7 +244,7 @@ class RNTwilioPhone {
       // }),
       twilioPhoneEmitter.addListener(EventType.CallConnected, 
         ({ callSid }) => {
-        const uuid = RNTwilioPhone.getCallUUID(callSid);
+        // const uuid = RNTwilioPhone.getCallUUID(callSid);
 
         // uuid && RNCallKeep.setCurrentCallActive(uuid);
       }),
