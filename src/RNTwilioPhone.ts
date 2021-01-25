@@ -30,16 +30,16 @@ const defaultOptions: RNTwilioPhoneOptions = {
   requestPermissionsOnInit: true,
 };
 
-const CK_CONSTANTS = {
-  END_CALL_REASONS: {
-    FAILED: 1,
-    REMOTE_ENDED: 2,
-    UNANSWERED: 3,
-    ANSWERED_ELSEWHERE: 4,
-    DECLINED_ELSEWHERE: 5,
-    MISSED: 6,
-  },
-};
+// const CK_CONSTANTS = {
+//   END_CALL_REASONS: {
+//     FAILED: 1,
+//     REMOTE_ENDED: 2,
+//     UNANSWERED: 3,
+//     ANSWERED_ELSEWHERE: 4,
+//     DECLINED_ELSEWHERE: 5,
+//     MISSED: 6,
+//   },
+// };
 
 class RNTwilioPhone {
   static calls: Call[] = [];
