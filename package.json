@@ -34,13 +34,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/akshit5230/react-native-twilio-phone",
-  "author": "Akshit W (https://github.com/akshit5230)",
+  "repository": "https://github.com/akshitrcrm/react-native-twilio-phone",
+  "author": "Akshit W (https://github.com/akshitrcrm)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/akshit5230/react-native-twilio-phone/issues"
+    "url": "https://github.com/akshitrcrm/react-native-twilio-phone/issues"
   },
-  "homepage": "https://github.com/akshit5230/react-native-twilio-phone#readme",
+  "homepage": "https://github.com/akshitrcrm/react-native-twilio-phone#readme",
   "devDependencies": {
     "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/bob": "^0.16.2",
@@ -57,8 +57,8 @@
     "jest": "^26.0.1",
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-native": "^0.63.3",
+    "react": "16.13.1",
+    "react-native": "0.63.3",
     "release-it": "^13.5.8",
     "typescript": "~4.0.0"
   },
