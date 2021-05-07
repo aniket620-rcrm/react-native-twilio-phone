@@ -147,6 +147,26 @@ class TwilioPhone: RCTEventEmitter {
         activeCall.isOnHold = hold
     }
     
+    @objc(toggleSpeaker:)
+    func toggleAudioRoute(speakerOn: Bool) {
+        NSLog("[TwilioPhone] Toggling speaker")
+        
+        audioDevice.block = {
+            DefaultAudioDevice.DefaultAVAudioSessionConfigurationBlock()
+            do {
+                if speakerOn {
+                    try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+                } else {
+                    try AVAudioSession.sharedInstance().overrideOutputAudioPort(.none)
+                }
+            } catch {
+                NSLog("[TwilioPhone] Failed to toggle speaker: \(error.localizedDescription)")
+            }
+        }
+        
+        audioDevice.block()
+    }
+    
     @objc(sendDigits:withDigits:)
     func sendDigits(callSid: String, digits: String) {
         NSLog("[TwilioPhone] Sending digits")
