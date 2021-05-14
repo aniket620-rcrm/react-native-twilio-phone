@@ -234,7 +234,7 @@ class TwilioPhone: RCTEventEmitter {
         
         var permissions: [String: String] = [:]
         
-        let permissionStatus = AVAudioSession.sharedInstance().recordPermission
+        let permissionStatus = AVAudioSession.sharedInstance().recordPermission()
         
         switch permissionStatus {
         case .granted:
