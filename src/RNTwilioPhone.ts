@@ -27,7 +27,7 @@ type TwilioOptions = {
 }
 
 const defaultOptions: RNTwilioPhoneOptions = {
-  requestPermissionsOnInit: true,
+  requestPermissionsOnInit: false,
 };
 
 // const CK_CONSTANTS = {
