@@ -42,6 +42,10 @@
   },
   "homepage": "https://github.com/akshitrcrm/react-native-twilio-phone#readme",
   "devDependencies": {
+    "react-native-callkeep": "^4.3.2",
+    "react-native-voip-push-notification": "^3.3.0",
+    "@react-native-firebase/app": "^14.5.1",
+    "@react-native-firebase/messaging": "^14.5.1",
     "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/eslint-config": "^2.0.0",
     "@release-it/conventional-changelog": "^1.1.4",
@@ -64,7 +68,9 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-callkeep": "*",
+    "react-native-voip-push-notification": "*"
   },
   "jest": {
     "preset": "react-native",
